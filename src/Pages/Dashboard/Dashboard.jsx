@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
 import './styles.css'
-
+import imag from '../../assets/istockphoto-1210939712-612x612.jpg'
 let lists = document.getElementsByClassName("list")
 let rightBox = document.getElementById("right")
 let leftBox = document.getElementById("left")
@@ -34,7 +35,7 @@ for (let list of lists) {
 }
 
 const Dashboard = () => {
-
+    const { user } = useContext(AuthContext)
     const [tasks, setTasks] = useState([]);
 
     const handleDelete = (id) => {
@@ -56,22 +57,22 @@ const Dashboard = () => {
             .then(res => res.json())
             .then(data => setTasks(data))
     }, [])
-    console.log(tasks)
+    console.log(user)
 
     return (
         <div className='flex gap-10'>
             <div className="w-64 min-h-screen bg-primary text-white">
                 <div className="avatar flex justify-center py-5">
                     <div className="w-32 rounded-full">
-                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                        <img src={user.photoURL ? user.photoURL : imag} />
                     </div>
                 </div>
                 <div className="px-5">
-                    <h3>Name:</h3>
-                    <p>Email:</p>
-                    <p>Gender:</p>
-                    <p>Type:</p>
-                    <p>Profession:</p>
+                    <h3 className='text-sm'>Name : {user.displayName
+                    }</h3>
+                    <p className='text-sm'>Email : {user.email}</p>
+                    <p className='text-sm'>Email Verified : {user.emailVerified ? "True" : "False"} </p>
+                    <p className='text-sm'>Phone Number : {user.phoneNumber ? user.phoneNumber : "Null"} </p>
                 </div>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto'>
