@@ -13,6 +13,7 @@ import CreateTask from './Pages/Create Task/CreateTask.jsx';
 import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Register/Register.jsx';
 import Dashboard from './Pages/Dashboard/Dashboard.jsx';
+import AuthProvider from './Provider/AuthProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -51,9 +52,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <div className='max-w-7xl mx-auto px-5'>
     <React.StrictMode>
-      <React.StrictMode>
+      <AuthProvider>
         <RouterProvider router={router} />
-      </React.StrictMode>
+      </AuthProvider>
     </React.StrictMode>
   </div>
 )
