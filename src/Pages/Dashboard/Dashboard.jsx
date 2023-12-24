@@ -37,6 +37,20 @@ const Dashboard = () => {
 
     const [tasks, setTasks] = useState([]);
 
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5000/alltasks/${id}`, {
+            method: 'DELETE'
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }
+
+
+
+
     useEffect(() => {
         fetch('http://localhost:5000/alltasks')
             .then(res => res.json())
@@ -65,8 +79,9 @@ const Dashboard = () => {
                     <h2 className='text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-4 text-xl border-b-2'>To do list</h2>
                     <hr />
                     {
-                        tasks.map(task => <div key={task._id} className='list text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
-                            {task.title}
+                        tasks.map(task => <div key={task._id} className='list flex items-center justify-between text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
+                            <h2 className='text-center ml-1/2'>{task.title}</h2>
+                            <button onClick={() => handleDelete(task._id)} className='btn  btn-error btn-xs text-red-700'>X</button>
                         </div>)
                     }
 
