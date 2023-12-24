@@ -14,6 +14,7 @@ import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Register/Register.jsx';
 import Dashboard from './Pages/Dashboard/Dashboard.jsx';
 import AuthProvider from './Provider/AuthProvider.jsx';
+import PrivateRouter from './PrivateRouter/PrivateRouter.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,11 +27,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/mytask',
-        element: <MyTask></MyTask>
+        element: <PrivateRouter><MyTask></MyTask></PrivateRouter>
       },
       {
         path: '/createtask',
-        element: <CreateTask></CreateTask>
+        element: <PrivateRouter> <CreateTask></CreateTask></PrivateRouter>
       },
       {
         path: '/login',
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>
+        element: <PrivateRouter><Dashboard></Dashboard></PrivateRouter>
       }
     ]
   },
