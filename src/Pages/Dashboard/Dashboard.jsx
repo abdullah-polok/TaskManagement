@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './styles.css'
 
 let lists = document.getElementsByClassName("list")
@@ -35,6 +35,14 @@ for (let list of lists) {
 
 const Dashboard = () => {
 
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/alltasks')
+            .then(res => res.json())
+            .then(data => setTasks(data))
+    }, [])
+    console.log(tasks)
 
     return (
         <div className='flex gap-10'>
@@ -56,18 +64,12 @@ const Dashboard = () => {
                 <div id='left'>
                     <h2 className='text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-4 text-xl border-b-2'>To do list</h2>
                     <hr />
-                    <div className='list text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
-                        List Item 1
-                    </div>
-                    <div className='list text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
-                        List Item 2
-                    </div>
-                    <div className='list text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
-                        List Item 3
-                    </div>
-                    <div className='list text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
-                        List Item 4
-                    </div>
+                    {
+                        tasks.map(task => <div key={task._id} className='list text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-1 text-lg border-b-2' draggable="true">
+                            {task.title}
+                        </div>)
+                    }
+
                 </div>
                 <div id='middle'>
                     <h2 className='text-center bg-primary text-white shadow-lg shadow-gray-300 m-2 rounded-md p-4 text-xl border-b-2'>Ongoing</h2>

@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom";
 
 const CreateTask = () => {
+    const navigate = useNavigate();
     const handleCreateTask = (e) => {
         e.preventDefault()
         const form = e.target;
@@ -9,7 +11,20 @@ const CreateTask = () => {
         const priority = form.priority.value
         const taskform = { title, description, deadline, priority }
 
-        console.log(taskform)
+        // console.log(taskform)
+
+        fetch('http://localhost:5000/alltasks', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(taskform)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+        navigate('/dashboard')
     }
     return (
         <div className="bg-white p-8 rounded  w-full">
