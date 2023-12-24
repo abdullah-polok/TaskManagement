@@ -14,7 +14,7 @@ const Register = () => {
         const name = form.name.value;
         const email = form.email.value
         const password = form.password.value
-        console.log(email, password)
+        console.log(name, email, password)
 
         ///Check password length
         if (password.length < 6) {
