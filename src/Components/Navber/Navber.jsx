@@ -1,5 +1,13 @@
 import { Link, NavLink } from "react-router-dom"
+import { useContext } from 'react'
+import { AuthContext } from "../../Provider/AuthProvider";
 const Navber = () => {
+    const userInfo = useContext(AuthContext)
+    const { user, logOut } = userInfo
+    const handleUser = () => {
+        logOut()
+    }
+
     const navlinks = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/createtask'}>Create Task</NavLink></li>
@@ -32,7 +40,15 @@ const Navber = () => {
             </div>
             <div className="navbar-end ">
                 {
-                    <Link></Link>
+                    user ? <>
+                        <li><NavLink className='no-underline text-lg mx-0   hover:bg-slate-800' onClick={handleUser}>logout</NavLink></li>
+                    </> :
+                        <>
+                            <ul className="menu menu-horizontal px-1">
+                                <li><NavLink className='no-underline text-base ' to='/login'>Login</NavLink></li>
+                                <li><NavLink className='no-underline text-base' to='/register'>Register</NavLink></li>
+                            </ul>
+                        </>
                 }
             </div>
         </div>
